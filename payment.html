@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Pesanan — Zesty Fresh</title>
+    <link rel="stylesheet" href="payment.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
+    <link href="https://cdn.boxicons.com/3.0.8/fonts/basic/boxicons.min.css" rel="stylesheet">
+    <style>
+        
+    </style>
+</head>
+<body>
+
+    <header style="text-align:center; margin-bottom: 30px;">
+        <h1 style="color: var(--green);">Zesty Fresh Checkout</h1>
+    </header>
+
+    <div class="bento-container">
+        <!-- 1. Form Data Pemesan -->
+        <div class="bento-item item-form">
+            <h3>Data Pemesan</h3>
+            <div class="input-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="cust-name" placeholder="Masukkan nama Anda...">
+            </div>
+            <div class="input-group">
+                <label>Alamat Pengiriman Lengkap</label>
+                <textarea id="cust-address" rows="3" placeholder="Nama jalan, nomor rumah, kec, kota..."></textarea>
+            </div>
+        </div>
+
+        <!-- 2. Ringkasan Pesanan -->
+        <div class="bento-item item-summary">
+            <h3>Ringkasan Pesanan</h3>
+            <div id="summary-list" class="summary-list"></div>
+        </div>
+
+        <!-- 3. Metode Pembayaran -->
+        <div class="bento-item item-method">
+            <h3>Pembayaran</h3>
+            <div class="method-grid">
+                <label class="method-btn"><input type="radio" name="pay" value="OVO"><i class="bx bx-wallet-alt"></i> OVO</label>
+                <label class="method-btn"><input type="radio" name="pay" value="GOPAY"><i class="bx bx-wallet"></i> GoPay</label>
+                <label class="method-btn"><input type="radio" name="pay" value="TRANSFER"><i class="bx bx-credit-card-front"></i>  Transfer</label>
+                <label class="method-btn"><input type="radio" name="pay" value="COD"> COD</label>
+            </div>
+        </div>
+
+        <!-- 4. Total Harga -->
+        <div class="bento-item item-total">
+            <span style="font-size: 0.8rem; color: var(--gray);">Total Bayar:</span>
+            <h2 id="grand-total" style="margin: 5px 0; color: var(--primary);">Rp 0</h2>
+        </div>
+
+        <!-- 5. Tombol Checkout -->
+        <div class="bento-item item-checkout" onclick="generateInvoice()">
+            Checkout Sekarang
+        </div>
+    </div>
+
+    <!-- MODAL INVOICE -->
+    <div class="modal-overlay" id="invoice-modal">
+        <div class="modal-content">
+            <div class="invoice-header">
+                <h2 style="margin:0; color: var(--primary);">INVOICE</h2>
+                <small>Zesty Fresh — Farm to Door</small>
+                <h1 style="font-family: 'Libre Barcode 39'; font-size: 6em; font-weight: 100; margin-top: 20px; margin-bottom: 10px;">2392919r</h2>
+            </div>
+
+            
+            <div class="invoice-details" id="invoice-body">
+                <!-- Diisi via JS -->
+            </div>
+
+            <div style="border-top: 1px solid #eee; padding-top: 20px;">
+                <button class="btn-finish" onclick="finalizeOrder()">Konfirmasi & Selesai</button>
+                <button onclick="closeModal()" style="width:100%; background:none; border:none; color:var(--gray); margin-top:10px; cursor:pointer;">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('zesty_cart') || '[]');
+
+        function init() {
+            const list = document.getElementById('summary-list');
+            const totalEl = document.getElementById('grand-total');
+            
+            if (cart.length === 0) {
+                list.innerHTML = "<p style='color:gray'>Keranjang kosong.</p>";
+                return;
+            }
+
+            list.innerHTML = cart.map(item => `
+                <div class="cart-row">
+                    <span>${item.qty}x ${item.name}</span>
+                    <strong>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</strong>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((s, c) => s + (c.price * c.qty), 0);
+            totalEl.textContent = 'Rp ' + total.toLocaleString('id-ID');
+
+            // Toggle active class untuk radio buttons
+            const btns = document.querySelectorAll('.method-btn');
+            btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    btn.querySelector('input').checked = true;
+                });
+            });
+        }
+
+        function generateInvoice() {
+            const name = document.getElementById('cust-name').value;
+            const address = document.getElementById('cust-address').value;
+            const pay = document.querySelector('input[name="pay"]:checked');
+
+            if (!name || !address || !pay) {
+                alert("⚠️ Mohon lengkapi Data Diri & Metode Pembayaran!");
+                return;
+            }
+
+            const total = cart.reduce((s, c) => s + (c.price * c.qty), 0);
+            const itemsHtml = cart.map(item => `<li>${item.name} (${item.qty})</li>`).join('');
+
+            document.getElementById('invoice-body').innerHTML = `
+                <p><strong>Nama:</strong> ${name}</p>
+                <p><strong>Alamat:</strong> ${address}</p>
+                <p><strong>Metode:</strong> ${pay.value}</p>
+                <hr>
+                <p><strong>Pesanan:</strong></p>
+                <ul style="padding-left:20px">${itemsHtml}</ul>
+                <h3 style="text-align:right; color:var(--primary);">Total: Rp ${total.toLocaleString('id-ID')}</h3>
+            `;
+
+            document.getElementById('invoice-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('invoice-modal').style.display = 'none';
+        }
+
+        function finalizeOrder() {
+            alert("✅ Pesanan Berhasil! Kurir kami akan segera menghubungi Anda.");
+            localStorage.removeItem('zesty_cart');
+            window.location.href = 'index.html';
+        }
+
+        init();
+    </script>
+</body>
+</html>

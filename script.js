@@ -1,25 +1,29 @@
 // ===== DATA PRODUK =====
 const products = [
-  { id: 1, name: 'Saus Creamy Susu', emoji: '🥛', unit: '100 ml', price: 6000, original: 8000, category: 'saus', badge: 'Diskon', isNew: false },
-  { id: 2, name: 'Potongan Pir', emoji: '🍐', unit: '150g', price: 8000, original: null, category: 'buah', badge: null, isNew: false },
-  { id: 3, name: 'Potongan Nanas', emoji: '🍍', unit: '150g', price: 7000, original: null, category: 'buah', badge: null, isNew: false },
-  { id: 4, name: 'Stroberi Fresh', emoji: '🍓', unit: '120g', price: 9000, original: 12000, category: 'buah', badge: 'Diskon', isNew: false },
-  { id: 5, name: 'Apel Fuji Slice', emoji: '🍎', unit: '150g', price: 8500, original: null, category: 'buah', badge: null, isNew: false },
-  { id: 6, name: 'Mangga Manis', emoji: '🥭', unit: '150g', price: 8000, original: null, category: 'buah', badge: 'Musiman', isNew: false },
-  { id: 7, name: 'Blueberry Premium', emoji: '🫐', unit: '80g', price: 12000, original: 15000, category: 'buah', badge: 'Diskon', isNew: false },
-  { id: 8, name: 'Semangka Fresh', emoji: '🍉', unit: '200g', price: 7000, original: null, category: 'buah', badge: null, isNew: true },
-  { id: 9, name: 'Kiwi Slice', emoji: '🥝', unit: '120g', price: 10000, original: null, category: 'buah', badge: null, isNew: false },
-  { id: 10, name: 'Jeruk Segar', emoji: '🍊', unit: '150g', price: 7500, original: null, category: 'buah', badge: null, isNew: false },
-  { id: 11, name: 'Pisang Ambon', emoji: '🍌', unit: '150g', price: 6000, original: null, category: 'buah', badge: null, isNew: false },
+  // --- KATEGORI BUAH (Porsi Potongan per porsi salad) ---
+  { id: 1, name: 'Potongan Pir', emoji: '🍐', unit: '50g', price: 2500, original: null, category: 'buah', badge: null, isNew: false },
+  { id: 2, name: 'Potongan Nanas', emoji: '🍍', unit: '50g', price: 2000, original: null, category: 'buah', badge: null, isNew: false },
+  { id: 3, name: 'Stroberi Fresh', emoji: '🍓', unit: '3 pcs', price: 4500, original: 6000, category: 'buah', badge: 'Diskon', isNew: false },
+  { id: 4, name: 'Apel Fuji Slice', emoji: '🍎', unit: '50g', price: 3000, original: null, category: 'buah', badge: null, isNew: false },
+  { id: 5, name: 'Mangga Manis', emoji: '🥭', unit: '50g', price: 3500, original: null, category: 'buah', badge: 'Musiman', isNew: false },
+  { id: 6, name: 'Blueberry', emoji: '🫐', unit: '5 pcs', price: 5000, original: 7000, category: 'buah', badge: 'Diskon', isNew: false },
+  { id: 7, name: 'Semangka Merah', emoji: '🍉', unit: '60g', price: 1500, original: null, category: 'buah', badge: null, isNew: true },
+  { id: 8, name: 'Kiwi Green Slice', emoji: '🥝', unit: '30g', price: 4000, original: null, category: 'buah', badge: null, isNew: false },
+  { id: 9, name: 'Jeruk Kupas', emoji: '🍊', unit: '30g', price: 2500, original: null, category: 'buah', badge: null, isNew: false },
+  { id: 10, name: 'Melon Hijau', emoji: '🍈', unit: '50g', price: 2000, original: null, category: 'buah', badge: null, isNew: false },
+  { id: 11, name: 'Anggur Merah', emoji: '🍇', unit: '3 pcs', price: 3000, original: null, category: 'buah', badge: null, isNew: false },
 
-  { id: 12, name: 'Yogurt Dressing', emoji: '🥣', unit: '100 ml', price: 8000, original: null, category: 'saus', badge: null, isNew: true },
-  { id: 13, name: 'Madu Asli', emoji: '🍯', unit: '50 ml', price: 7000, original: null, category: 'saus', badge: null, isNew: false },
-  { id: 14, name: 'Mayones', emoji: '🍼', unit: '100 ml', price: 5000, original: null, category: 'saus', badge: null, isNew: false },
-  { id: 15, name: 'Keju Cheddar Parut', emoji: '🧀', unit: '30g', price: 6000, original: null, category: 'saus', badge: null, isNew: false },
+  // --- KATEGORI SAUS & TOPPING (Takaran 1 cup kecil) ---
+  { id: 12, name: 'Saus Creamy Susu', emoji: '🥛', unit: '35 ml', price: 3000, original: 4500, category: 'saus', badge: 'Best Seller', isNew: false },
+  { id: 13, name: 'Yogurt Dressing', emoji: '🥣', unit: '35 ml', price: 4000, original: null, category: 'saus', badge: null, isNew: true },
+  { id: 14, name: 'Madu Murni', emoji: '🍯', unit: '15 ml', price: 3500, original: null, category: 'saus', badge: null, isNew: false },
+  { id: 15, name: 'Keju Cheddar Parut', emoji: '🧀', unit: '20g', price: 3000, original: null, category: 'saus', badge: null, isNew: false },
+  { id: 16, name: 'Granola Crunch', emoji: '🌾', unit: '15g', price: 2500, original: null, category: 'saus', badge: null, isNew: true },
 
-  { id: 16, name: 'Jus Alpukat', emoji: '🥑', unit: '300 ml', price: 20000, original: null, category: 'minuman', badge: null, isNew: true },
-  { id: 17, name: 'Jus Jeruk Fresh', emoji: '🍊', unit: '300 ml', price: 18000, original: 22000, category: 'minuman', badge: 'Diskon', isNew: false },
-  { id: 18, name: 'Smoothie Mix', emoji: '🧃', unit: '300 ml', price: 22000, original: null, category: 'minuman', badge: null, isNew: true },
+  // --- KATEGORI MINUMAN (Gelas Personal 250ml) ---
+  { id: 17, name: 'Infused Water', emoji: '💧', unit: '250 ml', price: 5000, original: null, category: 'minuman', badge: null, isNew: false },
+  { id: 18, name: 'Jus Jeruk Peras', emoji: '🍊', unit: '250 ml', price: 12000, original: 15000, category: 'minuman', badge: 'Diskon', isNew: false },
+  { id: 19, name: 'Smoothie Berry', emoji: '🧃', unit: '250 ml', price: 15000, original: null, category: 'minuman', badge: null, isNew: true },
 ];
 
 // ===== STATE =====
@@ -202,16 +206,20 @@ function quickAdd(id) {
 }
 
 // ===== CHECKOUT =====
+// Ganti fungsi checkout yang lama dengan ini:
 function checkout() {
-  if (cart.length === 0) return;
-  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
-  showToast(`✅ Pesanan Rp ${total.toLocaleString('id-ID')} sedang diproses!`);
-  cart = [];
-  saveCart();
-  updateCartUI();
-  toggleCart();
+  if (cart.length === 0) {
+    showToast("⚠️ Keranjang kamu masih kosong!");
+    return;
+  }
+  
+  // Menampilkan efek loading sebentar sebelum pindah halaman
+  showToast("🔄 Mengalihkan ke halaman pembayaran...");
+  
+  setTimeout(() => {
+    window.location.href = 'payment.html';
+  }, 800);
 }
-
 // ===== PROMO =====
 function copyPromo() {
   navigator.clipboard.writeText('ZESTYFRESH').then(() => {

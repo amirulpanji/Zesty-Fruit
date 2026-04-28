@@ -1,0 +1,176 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --green: #2D7A4F;
+    --green-light: #4CAF78;
+    --green-pale: #E8F5EE;
+    --lime: #A8D55C;
+    --orange: #FF6B35;
+    --cream: #FFFDF7;
+    --dark: #1A2E1A;
+    --gray: #6B7B6B;
+    --gray-light: #F0F4F0;
+    --white: #FFFFFF;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+    --shadow: 0 4px 24px rgba(45,122,79,0.10);
+    --shadow-lg: 0 12px 48px rgba(45,122,79,0.15);
+    --radius: 16px;
+    --radius-sm: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--cream);    
+    color: var(--dark);
+    margin: 0;
+    padding: 15px; /* Margin diperkecil untuk layar kecil */
+    -webkit-font-smoothing: antialiased;
+} 
+
+h1 {
+    font-family: var(--font-display);
+    font-size: 2em;
+    font-weight: 900; line-height: 1.15;
+    color: var(--dark); margin-bottom: 20px;
+    letter-spacing: -1px;        
+}
+
+i { font-size: 1.2em; align-self: center; justify-self: center; }
+
+.bento-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto; /* Biar tinggi menyesuaikan konten */
+    gap: 15px;
+}
+
+.bento-item {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.bento-item h3 { margin-top: 0; font-size: 1.1rem; color: var(--green   ); }
+
+        
+.item-form { grid-column: span 2; grid-row: span 2; gap: 12px; display: flex; flex-direction: column; }
+.item-summary { grid-column: span 2; grid-row: span 4; }
+.item-method { grid-column: span 2; grid-row: span 2; gap: 12px; display: flex; flex-direction: column;}
+.item-total { 
+    grid-column: span 2; 
+    grid-row: span 1; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center;
+    padding: 20px 25px; /* Sesuaikan padding */
+}
+
+.item-checkout { 
+    grid-column: span 2; 
+    grid-row: span 1; /* Pastikan tetap span 1 */
+    background: var(--green); 
+    color: white; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer; 
+    transition: var(--transition); 
+    font-weight: bold;
+    
+    /* Tambahkan atau ubah bagian ini untuk kontrol tinggi */
+    height: 60px; /* Atur tinggi pasti tombol */
+    margin-top: auto; /* Membantu posisi jika berada dalam grid */
+    border-radius: 18px; /* Sedikit lebih ramping dari kotak bento lainnya */
+}
+
+.item-checkout:hover { 
+    background: var(--dark); 
+    transform: translateY(-2px); /* Sedikit efek angkat saat hover */
+}
+
+.input-group { margin-bottom: 15px; }
+.input-group label { display: block; font-size: 0.8rem; margin-bottom: 5px; color: var(--gray); }
+.input-group input, .input-group textarea {
+    width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #ddd;
+    font-family: inherit; box-sizing: border-box;
+}
+
+.summary-list { max-height: 350px; overflow-y: auto; }
+.cart-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--accent); }
+
+.method-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 12px; 
+    margin-top: 10px; 
+}
+
+.method-btn { 
+    border: 2px solid var(--gray-light); 
+    padding: 15px 10px; 
+    border-radius: 12px; 
+    cursor: pointer; 
+    font-size: 0.95rem; 
+    transition: var(--transition);
+    /* Perbaikan utama di sini */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Jarak antara icon dan teks */
+}
+
+.method-btn i { 
+    font-size: 1.4rem; /* Ukuran icon lebih besar sedikit */
+    color: var(--green);
+}
+
+.method-btn:hover, .method-btn.active { 
+    border-color: var(--green); 
+    background: var(--green-pale); 
+}
+
+.method-btn.active i {
+    color: var(--green);
+}
+
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+.modal-content {
+    background: white; padding: 40px; border-radius: 30px; max-width: 500px; width: 90%;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2); position: relative;
+}
+
+.invoice-header h1 { margin-bottom: 1px;  }
+.invoice-header { text-align: center; border-bottom: 2px dashed #eee; padding-bottom: 10px; margin-bottom: 10px; }
+.invoice-details { font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+.invoice-details p { margin: 5px 0; }
+.btn-finish { 
+    width: 100%; background: var(--green); color: white; border: none; 
+    padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; 
+}
+
+.btn-finish:hover { background: var(--dark); }
+
+@media (max-width: 900px) {
+            .bento-container { grid-template-columns: repeat(2, 1fr); }
+            .item-form, .item-summary, .item-method { grid-column: span 2; }
+            .item-total, .item-checkout { grid-column: span 1; }
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 20px 15px; }
+            h1 { font-size: 1.8rem; }
+            .bento-container { grid-template-columns: 1fr; }
+            .item-form, .item-summary, .item-method, .item-total, .item-checkout { grid-column: span 1; }
+            .method-grid { grid-template-columns: 1fr; }
+            .item-checkout { height: 60px; order: 5; } /* Checkout di paling bawah */
+        }
